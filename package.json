@@ -7,11 +7,22 @@
     "build": "babel src -d dist",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["react", "component", "npm", "llm", "openai"],
+  "keywords": [
+    "react",
+    "component",
+    "npm",
+    "llm",
+    "openai"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "peerDependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "chatgpt": "^5.2.5",
+    "openai": "^4.67.3"
   }
 }
