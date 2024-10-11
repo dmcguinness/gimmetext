@@ -1,4 +1,4 @@
-# gimmetext
+# gimme-text
 Generate AI placeholder or production copy in your product
 
 # Getting Started
