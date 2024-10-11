@@ -22,6 +22,7 @@ function Component() {
   return (
     <GimmeP 
       className="yourclassnames"
+      prompt="Write me two sentences that seem important with no real point."
       apiKey={process.env.GEMINI_API_KEY} />
   )
 }
