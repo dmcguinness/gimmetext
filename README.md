@@ -12,3 +12,18 @@ or for yarn:
 ```
 yarn add gimme-text
 ```
+
+
+# Usage
+```
+import { GimmeP } from 'gimme-text'
+
+function Component() {
+  return (
+      <GimmeP 
+        className="yourclassnames"
+        apiKey={process.env.GEMINI_API_KEY}
+        />
+  )
+}
+```
