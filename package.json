@@ -1,0 +1,17 @@
+{
+  "name": "gimme-text",
+  "version": "1.0.0",
+  "description": "A description of your React package",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "babel src -d dist",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["react", "component", "npm", "llm", "openai"],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
