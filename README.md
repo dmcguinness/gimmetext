@@ -20,10 +20,9 @@ import { GimmeP } from 'gimme-text'
 
 function Component() {
   return (
-      <GimmeP 
-        className="yourclassnames"
-        apiKey={process.env.GEMINI_API_KEY}
-        />
+    <GimmeP 
+      className="yourclassnames"
+      apiKey={process.env.GEMINI_API_KEY} />
   )
 }
 ```
