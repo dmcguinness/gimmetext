@@ -12,7 +12,15 @@ const getGEMINICopy = async (prompt, apiKey) => {
   return result.response.text()
 }
 
-export async function gimmeSomeCopy(apiKey: string, prompt: string, apiChoice: string) {
+export async function gimmeSomeCopy({
+  apiKey,
+  apiChoice,
+  prompt,
+}: {
+  apiKey: string,
+  prompt: string,
+  apiChoice: string,
+}) {
   if (!apiKey) {
     return { 
       text: null,
