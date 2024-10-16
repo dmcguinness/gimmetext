@@ -48,3 +48,24 @@ export async function gimmeSomeCopy({
 
   return { text: "", error: new Error(CONSTANTS.UNSUPPORTED_API) }
 }
+
+export async function gimmeAList({
+  apiKey,
+  apiChoice,
+  prompt,
+  systemInstruction,
+  length,
+}, {
+  apiKey: string,
+  prompt: string,
+  apiChoice: string,
+  systemInstruction?: string,
+  length: number
+}) {
+  if (!apiKey) return { text: "", error: new Error(CONSTANTS.MISSING_API_KEY) }
+
+  if (apiChoice === "GEMINI") {
+  }
+
+  return { list: [], error: new Error(CONSTANTS.UNSUPPORTED_API) }
+}
