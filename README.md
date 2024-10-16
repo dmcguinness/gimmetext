@@ -23,7 +23,16 @@ function Component() {
     <GimmeP 
       className="yourclassnames"
       prompt="Write me two sentences that seem important with no real point."
-      apiKey={process.env.GEMINI_API_KEY} />
+      context="You are a sentient toaster observing the kitchen around you."
+      apiKey={YOUR_GEMINI_API_KEY} />
   )
 }
+
+/*
+  Props:
+  - prompt: write a prompt describing what you would like to see or asking a question you would like answered
+  - context: any additional context you would like to add for the resulting text
+  - apiKey: Gemini API project key
+  - apiChoice: one of ["GEMINI"], defaults to "GEMINI" (future plans to add openai support)
+*/
 ```
