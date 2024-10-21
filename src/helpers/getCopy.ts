@@ -58,7 +58,6 @@ export async function gimmeAList({
   apiChoice,
   prompts,
   systemInstruction,
-  length,
 }: {
   apiKey: string,
   prompts: Array<string>,

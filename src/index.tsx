@@ -1,5 +1,5 @@
 import React from 'react';
-import { gimmeSomeCopy } from './helpers/getCopy';
+import { gimmeSomeCopy, gimmeAList } from './helpers/getCopy';
 import {omit} from 'lodash'
 
 const APIS = {
@@ -11,11 +11,11 @@ const OMIT_PROPS = [
   'apiKey',
   'apiChoice',
   'prompt',
+  'prompts',
   'context'
 ]
 
 const defaultPrompt = "What is the response in LOTR when Aragorn says: Legolas, what do your elf eyes see?"
-const CHARACTERS_PER_TOKEN = 4
 
 function setLocalStorageKey (uuid: string, value: string) {
   let error, saved
@@ -73,6 +73,36 @@ const getText = async ({
   return { text, error }
 }
 
+const getListText = async ({
+  apiKey,
+  apiChoice,
+  prompts,
+  context,
+  uuid,
+}: {
+  apiKey: string,
+  apiChoice?: string,
+  prompts: string,
+  context?: string,
+  uuid: string,
+}) => {
+  if (!!uuid) {
+    const { error, value } = getLocalStorageKey(uuid)
+    if (!!error) console.warn(`Error retrieving localstorage: ${error.message}`)
+    if (!error && value?.length) return { text: value, error: null }
+  }
+
+  const { results, error } = await gimmeAList({
+    apiKey,
+    prompts: prompts || [],
+    apiChoice: apiChoice || APIS.GEMINI,
+    systemInstruction: context,
+  })
+  
+  !!uuid && results?.length && setLocalStorageKey(uuid, JSON.stringify(results))
+  return { results, error }
+}
+
 export async function GimmeSpan (props) {
   const { text, error } = await getText({...props})
   if (!!error) console.error(error?.message)
@@ -82,66 +112,73 @@ export async function GimmeSpan (props) {
 export async function GimmeP (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <p {...props}>{text}</p>
+  return <p {...omit(props, OMIT_PROPS}>{text}</p>
 }
 
 export async function GimmeH1 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h1 {...props}>{text}</h1>
+  return <h1 {...omit(props, OMIT_PROPS}>{text}</h1>
 }
 
 export async function GimmeH2 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h2 {...props}>{text}</h2>
+  return <h2 {...omit(props, OMIT_PROPS}>{text}</h2>
 }
 
 export async function GimmeH3 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h3 {...props}>{text}</h3>
+  return <h3 {...omit(props, OMIT_PROPS}>{text}</h3>
 }
 
 export async function GimmeH4 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h4 {...props}>{text}</h4>
+  return <h4 {...omit(props, OMIT_PROPS}>{text}</h4>
 }
 
 export async function GimmeH5 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h5 {...props}>{text}</h5>
+  return <h5 {...omit(props, OMIT_PROPS}>{text}</h5>
 }
 
 export async function GimmeH6 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h6 {...props}>{text}</h6>
+  return <h6 {...omit(props, OMIT_PROPS}>{text}</h6>
 }
 
 export async function GimmeStrong (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <strong {...props}>{text}</strong>
+  return <strong {...omit(props, OMIT_PROPS}>{text}</strong>
 }
 
 export async function GimmeEm (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <em {...props}>{text}</em>
+  return <em {...omit(props, OMIT_PROPS}>{text}</em>
 }
 
 export async function GimmeQ (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <q {...props}>{text}</q>
+  return <q {...omit(props, OMIT_PROPS}>{text}</q>
 }
 
 export async function GimmeBlockQuote (props) {
   const {text, error} = await getText({...props})
-  return <blockquote {...props}>{text}</blockquote>
+  return <blockquote {...omit(props, OMIT_PROPS}>{text}</blockquote>
+}
+
+export async function GimmeOL (props) {
+  const {results, error} = await getListText({...props})
+  return <ol {...omit(props, OMIT_PROPS}>
+    {results.map(result => (<li>{result}</li>))}
+  </ol>
 }
 
 // TODO - generate lists <ol> and <ul> based on a prompt
