@@ -105,83 +105,90 @@ const getListText = async ({
 
 export async function GimmeSpan (props) {
   const { text, error } = await getText({...props})
-  if (!!error) console.error(error?.message)
+  if (!!error) { console.error(error?.message) }
   return <span {...omit(props, OMIT_PROPS)}>{text}</span>
 }
 
 export async function GimmeP (props) {
   const {text, error} = await getText({...props})
-  if (!!error) console.error(error?.message)
-  return <p {...omit(props, OMIT_PROPS}>{text}</p>
+  if (!!error) { console.error(error?.message) }
+  return <p {...omit(props, OMIT_PROPS)}>{text}</p>
 }
 
 export async function GimmeH1 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h1 {...omit(props, OMIT_PROPS}>{text}</h1>
+  return <h1 {...omit(props, OMIT_PROPS)}>{text}</h1>
 }
 
 export async function GimmeH2 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h2 {...omit(props, OMIT_PROPS}>{text}</h2>
+  return <h2 {...omit(props, OMIT_PROPS)}>{text}</h2>
 }
 
 export async function GimmeH3 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h3 {...omit(props, OMIT_PROPS}>{text}</h3>
+  return <h3 {...omit(props, OMIT_PROPS)}>{text}</h3>
 }
 
 export async function GimmeH4 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h4 {...omit(props, OMIT_PROPS}>{text}</h4>
+  return <h4 {...omit(props, OMIT_PROPS)}>{text}</h4>
 }
 
 export async function GimmeH5 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h5 {...omit(props, OMIT_PROPS}>{text}</h5>
+  return <h5 {...omit(props, OMIT_PROPS)}>{text}</h5>
 }
 
 export async function GimmeH6 (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <h6 {...omit(props, OMIT_PROPS}>{text}</h6>
+  return <h6 {...omit(props, OMIT_PROPS)}>{text}</h6>
 }
 
 export async function GimmeStrong (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <strong {...omit(props, OMIT_PROPS}>{text}</strong>
+  return <strong {...omit(props, OMIT_PROPS)}>{text}</strong>
 }
 
 export async function GimmeEm (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <em {...omit(props, OMIT_PROPS}>{text}</em>
+  return <em {...omit(props, OMIT_PROPS)}>{text}</em>
 }
 
 export async function GimmeQ (props) {
   const {text, error} = await getText({...props})
   if (!!error) console.error(error?.message)
-  return <q {...omit(props, OMIT_PROPS}>{text}</q>
+  return <q {...omit(props, OMIT_PROPS)}>{text}</q>
 }
 
 export async function GimmeBlockQuote (props) {
   const {text, error} = await getText({...props})
-  return <blockquote {...omit(props, OMIT_PROPS}>{text}</blockquote>
+  return <blockquote {...omit(props, OMIT_PROPS)}>{text}</blockquote>
 }
 
 export async function GimmeOL (props) {
   const {results, error} = await getListText({...props})
-  return <ol {...omit(props, OMIT_PROPS}>
-    {results.map(result => (<li>{result}</li>))}
+  return <ol {...omit(props, OMIT_PROPS)}>
+    {results?.map(result => (<li>{result}</li>))}
   </ol>
 }
 
-// TODO - generate lists <ol> and <ul> based on a prompt
+export async function GimmeUL (props) {
+  const {results, error} = await getListText({...props})
+  return <ul {...omit(props, OMIT_PROPS)}>
+    {results?.map(result => (<li>{result}</li>))}
+  </ul>
+}
+
+
 // TODO - generate a data table based on a prompt
 // TODO - generate code in <code></code> tag with gemini code prompt
 // TODO - cache info in localstorage
