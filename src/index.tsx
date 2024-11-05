@@ -19,6 +19,7 @@ const defaultPrompt = "What is the response in LOTR when Aragorn says: Legolas, 
 
 function setLocalStorageKey (uuid: string, value: string) {
   let error, saved
+  if (typeof window === 'undefined') return { value: null, error: new Error('Window undefined, localStorage unavailable') }
   try {
     localStorage.setItem(`gimme-text-${uuid}`, value)
     saved = true
@@ -33,6 +34,7 @@ function setLocalStorageKey (uuid: string, value: string) {
 
 function getLocalStorageKey(uuid: string) {
   let error, value;
+  if (typeof window === 'undefined') return { value: null, error: new Error('Window undefined, localStorage unavailable') }
   try {
     value = localStorage.getItem(`gimme-text-${uuid}`);
   } catch (err) {
