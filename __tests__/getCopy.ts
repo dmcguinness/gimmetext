@@ -4,10 +4,23 @@ jest.mock('../src/helpers/getModel', () => ({
 }))
 import { getModel } from '../src/helpers/getModel'
 
+const DEFAULT_TEXT = 'I am some copy';
 const MOCK_RETURNS_EMPTY = {
   response: {
     text: () => ('')
   }
+};
+const MOCK_RETURNS_TEXT = {
+  response: {
+    text: () => (DEFAULT_TEXT)
+  }
+};
+
+
+const mockModel = contentResponse => {
+  (getModel as jest.Mock).mockReturnValue({
+    generateContent: () => (contentResponse)
+  })
 }
 
 describe('helpers/getCopy', () => {
@@ -54,15 +67,21 @@ describe('helpers/getCopy', () => {
 
     test('errors when api does not return text', async () => {
       
-      (getModel as jest.Mock).mockReturnValue({
-        generateContent: () => (MOCK_RETURNS_EMPTY)
-      })
-
+      mockModel(MOCK_RETURNS_EMPTY)
 
       const response = await gimmeSomeCopy(VALID_ARGS)
       expect(response.text).toBe('')
       expect(typeof response?.error).toBe('object')
       expect(response?.error?.message).toBe('Something went wrong making the request')
+    })
+
+
+    test('returns copy when model provides text', async () => {
+      mockModel(MOCK_RETURNS_TEXT)
+
+      const response = await gimmeSomeCopy(VALID_ARGS)
+      expect(response.text).toBe(DEFAULT_TEXT)
+      expect(response?.error).toBe(null)
     })
   })
 
