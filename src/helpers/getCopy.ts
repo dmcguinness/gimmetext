@@ -48,7 +48,6 @@ export async function gimmeAList({
   prompts: Array<string>,
   apiChoice: string,
   systemInstruction?: string,
-  length: number
 }) {
   if (!apiKey) return { results: [], error: new Error(CONSTANTS.MISSING_API_KEY) }
 

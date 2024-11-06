@@ -85,10 +85,67 @@ describe('helpers/getCopy', () => {
     })
   })
 
+  describe('gimmeAList', () => {
+    const VALID_ARGS = {
+      apiKey: 'abcd-efgh-ijkl-mnop',
+      prompts: ['This is a prompt', 'also a prompt'],
+      apiChoice: "GEMINI",
+      systemInstruction: "you're a pig that speaks a funny version of latin"
+    }
 
-  // test list and individual
-  // test when errors
-  // test when api not gemini
+
+    test('errors when no apiKey', async () => {
+      let response
+      try {
+        response = await gimmeAList({
+          ...VALID_ARGS,
+          apiKey: null,
+        })
+      } catch (e) {
+        expect(e?.message).toBeInstanceOf('string')
+      } finally {
+        expect(response?.results?.length).toBe(0)
+        expect(typeof response?.error).toBe('object')
+        expect(response?.error?.message).toBe('Please provide a valid api key')
+      } 
+    })
+
+    test('errors when invalid apiChoice', async () => {
+      let response
+      try {
+        response = await gimmeAList({
+          ...VALID_ARGS,
+          apiChoice: 'invalid',
+        })
+      } catch (e) {
+        expect(e?.message).toBeInstanceOf('string')
+      } finally {
+        expect(response?.results?.length).toBe(0)
+        expect(typeof response?.error).toBe('object')
+        expect(response?.error?.message).toBe('Please choose a valid api')
+      } 
+    })
+
+    test('errors when api does not return text', async () => {
+      mockModel(MOCK_RETURNS_EMPTY)
+
+      const response = await gimmeAList(VALID_ARGS)
+      expect(response?.results?.length).toBe(0)
+      expect(typeof response?.error).toBe('object')
+      expect(response?.error?.message).toBe('Something went wrong making the request')
+    })
+
+
+    test('returns copy when model provides text', async () => {
+      mockModel(MOCK_RETURNS_TEXT)
+
+      const response = await gimmeAList(VALID_ARGS)
+      expect(response?.results)
+      expect(response?.results?.length).toBe(2)
+      expect(response?.error).toBe(null)
+    })
+  })
+
 })
 
 
