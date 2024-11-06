@@ -1,20 +1,5 @@
-// import { ChatGPTAPI } from 'chatgpt'
-import { GoogleGenerativeAI } from "@google/generative-ai"
 
-// const getOPENAICopy = async (prompt, apiKey) => {
-//   const api = new ChatGPTAPI({ apiKey })
-// }
-
-const getModel = (apiKey, systemInstruction) => {
-  const genAI = new GoogleGenerativeAI(apiKey)
-  let modelParams = { model: "gemini-1.5-flash" }
-  if (!!systemInstruction) {
-    modelParams['systemInstruction'] = systemInstruction 
-  }
-
-  const model = genAI.getGenerativeModel(modelParams);
-  return model
-}
+import { getModel } from './getModel'
 
 const getGEMINICopy = async ({apiKey, prompt, systemInstruction}) => {
   const model = getModel(apiKey, systemInstruction)
@@ -63,7 +48,6 @@ export async function gimmeAList({
   prompts: Array<string>,
   apiChoice: string,
   systemInstruction?: string,
-  length: number
 }) {
   if (!apiKey) return { results: [], error: new Error(CONSTANTS.MISSING_API_KEY) }
 
@@ -72,8 +56,15 @@ export async function gimmeAList({
       const text = await getGEMINICopy({prompt, apiKey, systemInstruction})
       return text
     }));
-    // TODO - error handling
-    return { results, error: null }
+    
+    let error;
+    results.forEach(element => {
+      if (element.length === 0) {
+        error = new Error(CONSTANTS.REQUEST_ERR)
+      }
+    });
+
+    return { results, error: error || null }
   } 
 
   return { results: [], error: new Error(CONSTANTS.UNSUPPORTED_API) }
