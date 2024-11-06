@@ -1,20 +1,5 @@
-// import { ChatGPTAPI } from 'chatgpt'
-import { GoogleGenerativeAI } from "@google/generative-ai"
 
-// const getOPENAICopy = async (prompt, apiKey) => {
-//   const api = new ChatGPTAPI({ apiKey })
-// }
-
-const getModel = (apiKey, systemInstruction) => {
-  const genAI = new GoogleGenerativeAI(apiKey)
-  let modelParams = { model: "gemini-1.5-flash" }
-  if (!!systemInstruction) {
-    modelParams['systemInstruction'] = systemInstruction 
-  }
-
-  const model = genAI.getGenerativeModel(modelParams);
-  return model
-}
+import { getModel } from './getModel'
 
 const getGEMINICopy = async ({apiKey, prompt, systemInstruction}) => {
   const model = getModel(apiKey, systemInstruction)
