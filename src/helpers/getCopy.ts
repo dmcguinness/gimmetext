@@ -56,8 +56,15 @@ export async function gimmeAList({
       const text = await getGEMINICopy({prompt, apiKey, systemInstruction})
       return text
     }));
-    // TODO - error handling
-    return { results, error: null }
+    
+    let error;
+    results.forEach(element => {
+      if (element.length === 0) {
+        error = new Error(CONSTANTS.REQUEST_ERR)
+      }
+    });
+
+    return { results, error: error || null }
   } 
 
   return { results: [], error: new Error(CONSTANTS.UNSUPPORTED_API) }

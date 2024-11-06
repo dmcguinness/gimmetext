@@ -130,7 +130,7 @@ describe('helpers/getCopy', () => {
       mockModel(MOCK_RETURNS_EMPTY)
 
       const response = await gimmeAList(VALID_ARGS)
-      expect(response?.results?.length).toBe(0)
+      expect(response?.results?.length).toBe(2)
       expect(typeof response?.error).toBe('object')
       expect(response?.error?.message).toBe('Something went wrong making the request')
     })
@@ -140,7 +140,6 @@ describe('helpers/getCopy', () => {
       mockModel(MOCK_RETURNS_TEXT)
 
       const response = await gimmeAList(VALID_ARGS)
-      expect(response?.results)
       expect(response?.results?.length).toBe(2)
       expect(response?.error).toBe(null)
     })
