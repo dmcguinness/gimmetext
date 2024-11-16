@@ -84,7 +84,7 @@ const getListText = async ({
 }: {
   apiKey: string,
   apiChoice?: string,
-  prompts: string,
+  prompts: Array<string>,
   context?: string,
   uuid: string,
 }) => {
