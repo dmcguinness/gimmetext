@@ -6,14 +6,10 @@ import { getModel } from '../src/helpers/getModel'
 
 const DEFAULT_TEXT = 'I am some copy';
 const MOCK_RETURNS_EMPTY = {
-  response: {
-    text: () => ('')
-  }
+  response: { text: () => ('') }
 };
 const MOCK_RETURNS_TEXT = {
-  response: {
-    text: () => (DEFAULT_TEXT)
-  }
+  response: { text: () => (DEFAULT_TEXT) }
 };
 
 
